@@ -1,4 +1,3 @@
-#https://smart-irrigation.azurewebsites.net/api/smartirrigation?name=start
 import sys
 import time
 import threading
