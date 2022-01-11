@@ -1,0 +1,582 @@
+{
+    "$kind": "Microsoft.AdaptiveDialog",
+    "$designer": {
+      "name": "GharsaBOT",
+      "description": "",
+      "id": "A79tBe"
+    },
+    "autoEndDialog": true,
+    "defaultResultProperty": "dialog.result",
+    "triggers": [
+      {
+        "$kind": "Microsoft.OnConversationUpdateActivity",
+        "$designer": {
+          "id": "376720"
+        },
+        "actions": [
+          {
+            "$kind": "Microsoft.Foreach",
+            "$designer": {
+              "id": "518944",
+              "name": "Loop: for each item"
+            },
+            "itemsProperty": "turn.Activity.membersAdded",
+            "actions": [
+              {
+                "$kind": "Microsoft.IfCondition",
+                "$designer": {
+                  "id": "DM5cSu",
+                  "name": "Branch: if/else"
+                },
+                "actions": [
+                  {
+                    "$kind": "Microsoft.SendActivity",
+                    "$designer": {
+                      "id": "CNR3xr"
+                    },
+                    "activity": "${SendActivity_CNR3xr()}"
+                  },
+                  {
+                    "$kind": "Microsoft.ChoiceInput",
+                    "$designer": {
+                      "id": "5rjHHr"
+                    },
+                    "defaultLocale": "en-us",
+                    "disabled": false,
+                    "maxTurnCount": 3,
+                    "alwaysPrompt": false,
+                    "allowInterruptions": false,
+                    "unrecognizedPrompt": "${ChoiceInput_UnrecognizedPrompt_5rjHHr()}",
+                    "invalidPrompt": "",
+                    "prompt": "${ChoiceInput_Prompt_5rjHHr()}",
+                    "choiceOptions": {
+                      "includeNumbers": true,
+                      "inlineOrMore": ", or ",
+                      "inlineOr": " or ",
+                      "inlineSeparator": ", "
+                    },
+                    "choices": [
+                      "How's my farm doing?",
+                      "Control light",
+                      "Control watering"
+                    ],
+                    "style": "heroCard",
+                    "property": "user.choice",
+                    "recognizerOptions": {
+                      "recognizeOrdinals": true
+                    }
+                  },
+                  {
+                    "$kind": "Microsoft.SwitchCondition",
+                    "$designer": {
+                      "id": "LFUnv7"
+                    },
+                    "condition": "user.choice",
+                    "cases": [
+                      {
+                        "value": "How's my farm doing?",
+                        "actions": [
+                          {
+                            "$kind": "Microsoft.SendActivity",
+                            "$designer": {
+                              "id": "XNEd2P"
+                            },
+                            "activity": "${SendActivity_XNEd2P()}"
+                          },
+                          {
+                            "$kind": "Microsoft.HttpRequest",
+                            "$designer": {
+                              "id": "Mocuao"
+                            },
+                            "resultProperty": "dialog.api_response",
+                            "url": "https://test-irrig.azurewebsites.net/api/httptrigger5?name=lightoff",
+                            "method": "GET",
+                            "responseType": "none"
+                          },
+                          {
+                            "$kind": "Microsoft.IfCondition",
+                            "$designer": {
+                              "id": "K09id4"
+                            },
+                            "condition": "dialog.api_response.statusCode==200",
+                            "actions": [
+                              {
+                                "$kind": "Microsoft.SendActivity",
+                                "$designer": {
+                                  "id": "sxTTPz"
+                                },
+                                "activity": "${SendActivity_sxTTPz()}"
+                              }
+                            ],
+                            "elseActions": [
+                              {
+                                "$kind": "Microsoft.SendActivity",
+                                "$designer": {
+                                  "id": "8OOCu2"
+                                },
+                                "activity": "${SendActivity_8OOCu2()}"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "value": "Control light",
+                        "actions": [
+                          {
+                            "$kind": "Microsoft.SendActivity",
+                            "$designer": {
+                              "id": "n2L7Oy"
+                            },
+                            "activity": "${SendActivity_n2L7Oy()}"
+                          },
+                          {
+                            "$kind": "Microsoft.ChoiceInput",
+                            "$designer": {
+                              "id": "uvUiec"
+                            },
+                            "defaultLocale": "en-us",
+                            "disabled": false,
+                            "maxTurnCount": 3,
+                            "alwaysPrompt": false,
+                            "allowInterruptions": false,
+                            "unrecognizedPrompt": "",
+                            "invalidPrompt": "",
+                            "defaultValueResponse": "",
+                            "choiceOptions": {
+                              "includeNumbers": true,
+                              "inlineOrMore": ", or "
+                            },
+                            "property": "user.choice",
+                            "style": "heroCard",
+                            "choices": [
+                              "Turn on the light",
+                              "Turn off the light"
+                            ],
+                            "prompt": "${ChoiceInput_Prompt_uvUiec()}"
+                          },
+                          {
+                            "$kind": "Microsoft.SendActivity",
+                            "$designer": {
+                              "id": "vIC97m"
+                            },
+                            "activity": "${SendActivity_vIC97m()}"
+                          },
+                          {
+                            "$kind": "Microsoft.SwitchCondition",
+                            "$designer": {
+                              "id": "GgsgSq"
+                            },
+                            "condition": "user.choice",
+                            "cases": [
+                              {
+                                "value": "Turn on the light",
+                                "actions": [
+                                  {
+                                    "$kind": "Microsoft.SendActivity",
+                                    "$designer": {
+                                      "id": "VeUiow"
+                                    },
+                                    "activity": "${SendActivity_VeUiow()}"
+                                  },
+                                  {
+                                    "$kind": "Microsoft.HttpRequest",
+                                    "$designer": {
+                                      "id": "O8PMao"
+                                    },
+                                    "resultProperty": "dialog.api_response",
+                                    "method": "GET",
+                                    "url": "https://test-irrig.azurewebsites.net/api/httptrigger4?name=lighton",
+                                    "responseType": "none"
+                                  },
+                                  {
+                                    "$kind": "Microsoft.IfCondition",
+                                    "$designer": {
+                                      "id": "Evsb6J"
+                                    },
+                                    "condition": "dialog.api_response.statusCode == 200",
+                                    "actions": [
+                                      {
+                                        "$kind": "Microsoft.SendActivity",
+                                        "$designer": {
+                                          "id": "B6YQ9n"
+                                        },
+                                        "activity": "${SendActivity_B6YQ9n()}"
+                                      }
+                                    ],
+                                    "elseActions": [
+                                      {
+                                        "$kind": "Microsoft.SendActivity",
+                                        "$designer": {
+                                          "id": "p0X6xp"
+                                        },
+                                        "activity": "${SendActivity_p0X6xp()}"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "value": "Turn off the light",
+                                "actions": [
+                                  {
+                                    "$kind": "Microsoft.SendActivity",
+                                    "$designer": {
+                                      "id": "zgqg9T"
+                                    },
+                                    "activity": "${SendActivity_zgqg9T()}"
+                                  },
+                                  {
+                                    "$kind": "Microsoft.HttpRequest",
+                                    "$designer": {
+                                      "id": "bC6v2r"
+                                    },
+                                    "resultProperty": "dialog.api_response",
+                                    "method": "GET",
+                                    "url": "https://test-irrig.azurewebsites.net/api/httptrigger5?name=lightoff",
+                                    "responseType": "json"
+                                  },
+                                  {
+                                    "$kind": "Microsoft.IfCondition",
+                                    "$designer": {
+                                      "id": "liEolZ"
+                                    },
+                                    "condition": "dialog.api_response.statusCode == 200",
+                                    "actions": [
+                                      {
+                                        "$kind": "Microsoft.SendActivity",
+                                        "$designer": {
+                                          "id": "xlVFgi"
+                                        },
+                                        "activity": "${SendActivity_xlVFgi()}"
+                                      }
+                                    ],
+                                    "elseActions": [
+                                      {
+                                        "$kind": "Microsoft.SendActivity",
+                                        "$designer": {
+                                          "id": "2juMjW"
+                                        },
+                                        "activity": "${SendActivity_2juMjW()}"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "value": "Control watering",
+                        "actions": [
+                          {
+                            "$kind": "Microsoft.ChoiceInput",
+                            "$designer": {
+                              "id": "gQmq30"
+                            },
+                            "defaultLocale": "en-us",
+                            "disabled": false,
+                            "maxTurnCount": 3,
+                            "alwaysPrompt": false,
+                            "allowInterruptions": false,
+                            "unrecognizedPrompt": "",
+                            "invalidPrompt": "",
+                            "defaultValueResponse": "",
+                            "prompt": "${ChoiceInput_Prompt_gQmq30()}",
+                            "choiceOptions": {
+                              "includeNumbers": true,
+                              "inlineOrMore": ", or "
+                            },
+                            "style": "heroCard",
+                            "choices": [
+                              "Automatic",
+                              "Manual"
+                            ],
+                            "property": "user.choice"
+                          },
+                          {
+                            "$kind": "Microsoft.SwitchCondition",
+                            "$designer": {
+                              "id": "Am0igI"
+                            },
+                            "condition": "user.choice",
+                            "cases": [
+                              {
+                                "value": "Automatic",
+                                "actions": [
+                                  {
+                                    "$kind": "Microsoft.HttpRequest",
+                                    "$designer": {
+                                      "id": "VzQUkH"
+                                    },
+                                    "resultProperty": "dialog.api_response",
+                                    "method": "GET",
+                                    "url": "https://test-irrig.azurewebsites.net/api/httptrigger1?name=auto",
+                                    "responseType": "json"
+                                  },
+                                  {
+                                    "$kind": "Microsoft.IfCondition",
+                                    "$designer": {
+                                      "id": "BwKLU5"
+                                    },
+                                    "condition": "dialog.api_response.statusCode == 200",
+                                    "actions": [
+                                      {
+                                        "$kind": "Microsoft.SendActivity",
+                                        "$designer": {
+                                          "id": "9qGyDF"
+                                        },
+                                        "activity": "${SendActivity_9qGyDF()}"
+                                      }
+                                    ],
+                                    "elseActions": [
+                                      {
+                                        "$kind": "Microsoft.SendActivity",
+                                        "$designer": {
+                                          "id": "e8QQz0"
+                                        },
+                                        "activity": "${SendActivity_e8QQz0()}"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "value": "Manual",
+                                "actions": [
+                                  {
+                                    "$kind": "Microsoft.ChoiceInput",
+                                    "$designer": {
+                                      "id": "gZBQWX"
+                                    },
+                                    "defaultLocale": "en-us",
+                                    "disabled": false,
+                                    "maxTurnCount": 3,
+                                    "alwaysPrompt": false,
+                                    "allowInterruptions": false,
+                                    "prompt": "${ChoiceInput_Prompt_gZBQWX()}",
+                                    "unrecognizedPrompt": "",
+                                    "invalidPrompt": "",
+                                    "defaultValueResponse": "",
+                                    "choiceOptions": {
+                                      "includeNumbers": true
+                                    },
+                                    "property": "user.choice",
+                                    "style": "heroCard",
+                                    "choices": [
+                                      "Start Watering",
+                                      "Stop Watering"
+                                    ]
+                                  },
+                                  {
+                                    "$kind": "Microsoft.SwitchCondition",
+                                    "$designer": {
+                                      "id": "uvZiiw"
+                                    },
+                                    "condition": "user.choice",
+                                    "cases": [
+                                      {
+                                        "value": "Start Watering",
+                                        "actions": [
+                                          {
+                                            "$kind": "Microsoft.HttpRequest",
+                                            "$designer": {
+                                              "id": "n0eauM"
+                                            },
+                                            "resultProperty": "dialog.api_response",
+                                            "method": "GET",
+                                            "url": "https://test-irrig.azurewebsites.net/api/httptrigger3?name=start",
+                                            "responseType": "none"
+                                          },
+                                          {
+                                            "$kind": "Microsoft.IfCondition",
+                                            "$designer": {
+                                              "id": "Ck9fZ2"
+                                            },
+                                            "actions": [
+                                              {
+                                                "$kind": "Microsoft.SendActivity",
+                                                "$designer": {
+                                                  "id": "NXJZ6K"
+                                                },
+                                                "activity": "${SendActivity_NXJZ6K()}"
+                                              }
+                                            ],
+                                            "elseActions": [
+                                              {
+                                                "$kind": "Microsoft.SendActivity",
+                                                "$designer": {
+                                                  "id": "MI0rAS"
+                                                },
+                                                "activity": "${SendActivity_MI0rAS()}"
+                                              }
+                                            ],
+                                            "condition": "dialog.api_response.statusCode == 200"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "value": "Stop Watering",
+                                        "actions": [
+                                          {
+                                            "$kind": "Microsoft.HttpRequest",
+                                            "$designer": {
+                                              "id": "npb6mn"
+                                            },
+                                            "resultProperty": "dialog.api_response",
+                                            "method": "GET",
+                                            "url": "https://test-irrig.azurewebsites.net/api/httptrigger2?name=stop",
+                                            "responseType": "none"
+                                          },
+                                          {
+                                            "$kind": "Microsoft.IfCondition",
+                                            "$designer": {
+                                              "id": "9L0VGL"
+                                            },
+                                            "actions": [
+                                              {
+                                                "$kind": "Microsoft.SendActivity",
+                                                "$designer": {
+                                                  "id": "mTd00G"
+                                                },
+                                                "activity": "${SendActivity_mTd00G()}"
+                                              }
+                                            ],
+                                            "elseActions": [
+                                              {
+                                                "$kind": "Microsoft.SendActivity",
+                                                "$designer": {
+                                                  "id": "hLzyId"
+                                                },
+                                                "activity": "${SendActivity_hLzyId()}"
+                                              }
+                                            ],
+                                            "condition": "dialog.api_response == 200"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "default": []
+                  }
+                ],
+                "elseActions": [],
+                "condition": "string(dialog.foreach.value.id) != string(turn.Activity.Recipient.id)"
+              }
+            ],
+            "value": "dialog.foreach.value",
+            "index": "dialog.foreach.index"
+          }
+        ]
+      },
+      {
+        "$kind": "Microsoft.OnUnknownIntent",
+        "$designer": {
+          "id": "mb2n1u"
+        },
+        "actions": [
+          {
+            "$kind": "Microsoft.SendActivity",
+            "$designer": {
+              "id": "kMjqz1"
+            },
+            "activity": "${SendActivity_DidNotUnderstand()}"
+          }
+        ]
+      },
+      {
+        "$kind": "Microsoft.OnQnAMatch",
+        "$designer": {
+          "id": "65erNr"
+        },
+        "actions": [
+          {
+            "$kind": "Microsoft.IfCondition",
+            "$designer": {
+              "id": "Txayng"
+            },
+            "condition": "count(turn.recognized.answers[0].context.prompts) > 0",
+            "actions": [
+              {
+                "$kind": "Microsoft.SetProperty",
+                "$designer": {
+                  "id": "8FgIcI"
+                },
+                "property": "dialog.qnaContext",
+                "value": "=turn.recognized.answers[0].context.prompts"
+              },
+              {
+                "$kind": "Microsoft.TextInput",
+                "$designer": {
+                  "id": "LSy9Vt"
+                },
+                "maxTurnCount": 3,
+                "alwaysPrompt": true,
+                "allowInterruptions": false,
+                "property": "turn.qnaMultiTurnResponse"
+              },
+              {
+                "$kind": "Microsoft.SetProperty",
+                "$designer": {
+                  "id": "XZXzCi"
+                },
+                "property": "turn.qnaMatchFromContext",
+                "value": "=where(dialog.qnaContext, item, item.displayText == turn.qnaMultiTurnResponse)"
+              },
+              {
+                "$kind": "Microsoft.DeleteProperty",
+                "$designer": {
+                  "id": "3cxq9B"
+                },
+                "property": "dialog.qnaContext"
+              },
+              {
+                "$kind": "Microsoft.IfCondition",
+                "$designer": {
+                  "id": "ozhij5"
+                },
+                "condition": "turn.qnaMatchFromContext && count(turn.qnaMatchFromContext) > 0",
+                "actions": [
+                  {
+                    "$kind": "Microsoft.SetProperty",
+                    "$designer": {
+                      "id": "YqeKtT"
+                    },
+                    "property": "turn.qnaIdFromPrompt",
+                    "value": "=turn.qnaMatchFromContext[0].qnaId"
+                  }
+                ]
+              },
+              {
+                "$kind": "Microsoft.EmitEvent",
+                "$designer": {
+                  "id": "mSuYcm"
+                },
+                "eventName": "activityReceived",
+                "eventValue": "=turn.activity"
+              }
+            ],
+            "elseActions": [
+              {
+                "$kind": "Microsoft.SendActivity",
+                "$designer": {
+                  "id": "knkx2U"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "generator": "GharsaBOT.lg",
+    "id": "GharsaBOT",
+    "recognizer": "GharsaBOT.lu.qna"
+  }
