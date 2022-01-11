@@ -6,7 +6,7 @@ import uuid
 from azure.iot.hub import IoTHubRegistryManager
 from azure.iot.hub.models import Twin, TwinProperties, CloudToDeviceMethod, CloudToDeviceMethodResult, QuerySpecification, QueryResult
 
-CONNECTION_STRING = "HostName=smart-irrigation.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=XXX"
+CONNECTION_STRING = "HostName=smart-irrigation.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=XXXXXXXXXXXXXXXXXXXXXXXXX"
 DEVICE_ID = "raspberrypi"
 
 method_name = input("If you want to start watering type START if you want to stop it type STOP \nYou can also type AUTO if you want to switch to the automatic watering mode \n \n")
